@@ -13,39 +13,30 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private bool isGrounded;
     private bool isFacingRight = true;
-    
+
     private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
+    {   rb = GetComponent<Rigidbody2D>();
     }
-    
     private void Update()
-    {
-        
-        moveInput = Input.GetAxisRaw("Horizontal");
+    {   moveInput = Input.GetAxisRaw("Horizontal");
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundLayer);
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
-    
     private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+    {   rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         if (moveInput > 0 && !isFacingRight)
-        {
-            Flip();
+        {Flip();
         }
         else if (moveInput < 0 && isFacingRight)
-        {
-            Flip();
+        {Flip();
         }
     }
 
     private void Flip()
-    {
-        isFacingRight = !isFacingRight;
+    {   isFacingRight = !isFacingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
@@ -53,8 +44,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (groundCheckPoint != null)
-        {
-            Gizmos.color = Color.red;
+        {   Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         }
     }
