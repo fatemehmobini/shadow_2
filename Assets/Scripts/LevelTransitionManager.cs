@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 public class LevelTransitionManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject arrowImage;
-    [SerializeField] private GameObject interactivePanel;
     [SerializeField] private GameObject aria;
     [SerializeField] private GameObject shadow;
+    [SerializeField] private GameObject arrowImage;
+    [SerializeField] private GameObject interactivePanel;
     [Header("Settings")]
     [SerializeField] private float targetX = 5f;
     [SerializeField] private float arrowX = 6.5f;
@@ -15,29 +15,52 @@ public class LevelTransitionManager : MonoBehaviour
     private bool arrowShown = false;
     private bool panelShown = false;
     
+    void Start()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "Level2_Interactive" || sceneName == "Level3_Advanced")
+        {   this.enabled = false;
+            Debug.Log("LevelTransitionManager disabled in: " + sceneName);
+            return;
+        }
+    }
+    
     void Update()
-    {if (!arrowShown && aria.transform.position.x > targetX && shadow.transform.position.x > targetX)
+    {
+        if (!this.enabled) return;
+        if (aria == null || shadow == null)
+        { this.enabled = false;
+            return;
+        }
+        
+        if (!arrowShown && aria.transform.position.x > targetX && shadow.transform.position.x > targetX)
         {   ShowArrow();
             arrowShown = true;
         }
     }
     
     void ShowArrow()
-    { arrowImage.SetActive(true);
+    {
+        if (arrowImage == null) return;
+        arrowImage.SetActive(true);
         Vector3 worldPos = new Vector3(arrowX, arrowY, 0);
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         RectTransform rect = arrowImage.GetComponent<RectTransform>();
-        rect.position = screenPos;
+        if (rect != null)
+        { rect.position = screenPos;
+        }
     }
-    
     public void OnArrowClicked()
-    {if (panelShown) return;
-        interactivePanel.SetActive(true);
+    {   if (panelShown) return;
+        if (interactivePanel != null)
+        {interactivePanel.SetActive(true);
+        }
         panelShown = true;
-        arrowImage.SetActive(false);
+        if (arrowImage != null)
+        {arrowImage.SetActive(false);
+        }
     }
-    
     public void GoToInteractiveLevel()
-    {SceneManager.LoadScene("Level2_Interactive");
+    {   SceneManager.LoadScene("Level2_Interactive");
     }
 }

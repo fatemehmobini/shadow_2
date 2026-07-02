@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Shadow
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - ShadowOnly
   - AriaOnly
   - Both
-  - 
+  - EnemyLayer
   - 
   - 
   - 
@@ -38,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LightLayer
+    uniqueID: 918290687
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 522394231
+    locked: 0
+  - name: EnemyLayer
+    uniqueID: 3829876693
     locked: 0
