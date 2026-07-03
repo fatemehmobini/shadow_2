@@ -10,7 +10,7 @@ public class ShadowSwitchManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private KeyCode switchKey = KeyCode.Q;
     [SerializeField] private float switchCooldown = 0.3f;
-    [SerializeField] private float spawnDistance = 6f;
+    [SerializeField] private float spawnDistance = 2f;
     [Header("Sound Effects")]
     [SerializeField] private float normalPitch = 1f;
     [SerializeField] private float shadowPitch = 0.7f;
