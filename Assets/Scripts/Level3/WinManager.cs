@@ -21,10 +21,12 @@ public class WinManager : MonoBehaviour
         {   winPanel.SetActive(true);
             Time.timeScale = 0f;
             if (BackgroundMusicManager.Instance != null)
-            {BackgroundMusicManager.Instance.StopMusic();
+            {   BackgroundMusicManager.Instance.StopMusicForever();
+                Debug.Log("Background music stopped forever!");
             }
             if (winSound != null && winAudioSource != null)
-            {winAudioSource.PlayOneShot(winSound);
+            {   winAudioSource.PlayOneShot(winSound);
+                Debug.Log("Win sound played!");
             }
             Debug.Log("You Win!");
         }
@@ -32,8 +34,6 @@ public class WinManager : MonoBehaviour
     public void GoToMainMenu()
     {   Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
-        if (BackgroundMusicManager.Instance != null)
-        {   BackgroundMusicManager.Instance.PlayMusic();
-        }
+       
     }
 }
