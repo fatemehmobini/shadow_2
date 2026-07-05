@@ -53,19 +53,23 @@ public class Boss : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
-    public void KillBoss()
-    {
-        if (isDead || !isActive) return;
-        isDead = true;
-        isActive = false;
-        spriteRenderer.enabled = false;
-        bossCollider.enabled = false;
-        if (deathSound != null && audioSource != null)
-        {   audioSource.PlayOneShot(deathSound);
-            Debug.Log("Boss killed by shadow!");
-        }
-        Debug.Log("Boss disappeared!");
+   public void KillBoss()
+{   if (isDead || !isActive) return;
+    isDead = true;
+    isActive = false;
+    spriteRenderer.enabled = false;
+    bossCollider.enabled = false;
+    if (deathSound != null && audioSource != null)
+    {   audioSource.PlayOneShot(deathSound);
     }
+    Father father = FindObjectOfType<Father>();
+    if (father != null)
+    {   father.gameObject.SetActive(true);
+        Debug.Log("Father appeared at X=90!");
+    }
+    Debug.Log("Boss disappeared!");
+}
+
     void OnTriggerEnter2D(Collider2D other)
     {   if (isDead || !isActive) return;
         if (other.CompareTag("Player"))
